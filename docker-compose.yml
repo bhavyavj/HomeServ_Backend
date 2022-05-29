@@ -1,0 +1,41 @@
+version: '3.5'
+services:
+#   app:
+#     build: 
+#       context: .
+#     volumes:
+#       - .:/my-app
+
+  frontend:
+    image: "rishabh123456/spe_react123"
+    ports:
+      - "3000:3000"
+    container_name: frontend_container1
+    command: npm start
+
+  backend:
+    image: "rishabh123456/spe_spring"
+    ports:
+      - "8000:8080"
+    container_name: backend_container_sql1
+    restart: on-failure
+    environment:
+       
+      - DATABASE_URL=jdbc:mysql://mysqldb-container:3306/finalproject
+    depends_on:
+      - mydb
+
+  mydb:
+    image: "mysql:latest"
+    ports:
+      - "3307:3306"
+    volumes:
+      - "./data.sql:/docker-entrypoint-initdb.d/1/data.sql"
+    container_name: mysqldb-container
+    environment:
+      - MYSQL_ROOT_PASSWORD=rishabh123#
+      - MYSQL_DATABASE=finalproject
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=rishabh123#
+
+

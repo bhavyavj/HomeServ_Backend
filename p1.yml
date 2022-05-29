@@ -1,0 +1,11 @@
+---
+- name: run containers
+  hosts: localhost
+  
+
+  tasks:
+    - name: copy docker file
+      copy:
+        src: docker-compose.yml
+        dest: ./
+    
